@@ -1,0 +1,5 @@
+{
+  "translation.command.skillenergy.query": "%1$s的武器技能能量为%2$f",
+  "translation.command.specialenergy.query": "%1$s的必杀技能能量为%2$f",
+  "translation.command.onspecial.query": "%1$s的必杀技能开启状态为%2$b"
+}
