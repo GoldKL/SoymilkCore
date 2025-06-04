@@ -10,8 +10,11 @@ import com.goldkl.soymilk.communication.PlayerOnSpecialMessage;
 import com.goldkl.soymilk.communication.PlayerSkillEnergyMessage;
 import com.goldkl.soymilk.communication.PlayerSpecialEnergyMessage;
 import com.goldkl.soymilk.registries.AttributeRegistry;
+import dev.kosmx.playerAnim.api.TransformType;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
+import dev.kosmx.playerAnim.api.layered.modifier.AbstractModifier;
+import dev.kosmx.playerAnim.core.util.Vec3f;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +29,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
+import java.util.Set;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,modid = SoymilkCore.MODID)
 public class ModEventTracker {
@@ -68,7 +73,7 @@ public class ModEventTracker {
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(SoymilkCore.MODID, "first_animation"),
                 42,
-                ModEventTracker::registerPlayerAnimation);
+                ModEventTracker::registerPlayerAnimation1);
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(SoymilkCore.MODID, "third_animation"),
                 43,
@@ -79,5 +84,18 @@ public class ModEventTracker {
         //This will be invoked for every new player
         return new ModifierLayer<>();
     }
+    private static IAnimation registerPlayerAnimation1(AbstractClientPlayer player) {
+        //This will be invoked for every new player
+        IAnimation animation = new ModifierLayer<>(null,new AbstractModifier() {
+            private final Set<String> abledJoints = Set.of("rightArm", "leftArm"); // 需要禁用的关节名称
 
+            @Override
+            public Vec3f get3DTransform(String modelName, TransformType type, float tickDelta, Vec3f value0) {
+                return abledJoints.contains(modelName) ?
+                        super.get3DTransform(modelName, type, tickDelta, value0):
+                        value0; // 返回原始值（禁用动画）
+            }
+        });
+        return animation;
+    }
 }

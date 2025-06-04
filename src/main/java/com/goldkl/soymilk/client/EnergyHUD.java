@@ -31,7 +31,7 @@ public class EnergyHUD {
         public double specialenergy = 0.0;
         public double maxspecialenergy = 100.0;
         public boolean onspecial = false;
-    };
+    }
     private static final PlayerData playerData = new PlayerData();
     @SubscribeEvent
     public static void onOverlayRender(RenderGuiOverlayEvent.Post event) {
@@ -96,7 +96,6 @@ public class EnergyHUD {
                         if(Double.compare(switem.getNeedenergy(), playerData.skillenergy) <= 0)
                         {
                             double newenergy = playerData.skillenergy - switem.getNeedenergy();
-                            SoymilkCore.LOGGER.info("New energy: "+newenergy);
                             if (newenergy > i * 2) {
                                 if (newenergy >= i * 2 + 2) {
                                     guiGraphics.blit(texture, x + 33 + i * 10, y + 7, 27, 36, 9, 9, 256, 256);

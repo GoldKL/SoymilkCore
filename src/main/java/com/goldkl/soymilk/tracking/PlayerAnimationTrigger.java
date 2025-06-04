@@ -1,11 +1,14 @@
 package com.goldkl.soymilk.tracking;
 
 import com.goldkl.soymilk.SoymilkCore;
+import dev.kosmx.playerAnim.api.TransformType;
 import dev.kosmx.playerAnim.api.firstPerson.FirstPersonConfiguration;
 import dev.kosmx.playerAnim.api.firstPerson.FirstPersonMode;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
+import dev.kosmx.playerAnim.api.layered.modifier.AbstractModifier;
+import dev.kosmx.playerAnim.core.util.Vec3f;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.client.Minecraft;
@@ -17,6 +20,8 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Set;
 
 /**
  * Example, how to trigger animations on specific players
@@ -43,7 +48,7 @@ public class PlayerAnimationTrigger {
             if (animation1 != null) {
                 //You can set an animation from anywhere ON THE CLIENT
                 //Do not attempt to do this on a server, that will only fail
-
+                //SoymilkCore.LOGGER.info("{}",tem1.bodyParts);
                 animation1.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "waving"))).setFirstPersonConfiguration(new FirstPersonConfiguration(true,true,true,true)).setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL));
                 //You might use  animation.replaceAnimationWithFade(); to create fade effect instead of sudden change
                 //See javadoc for details
@@ -51,7 +56,7 @@ public class PlayerAnimationTrigger {
             if (animation2 != null) {
                 //You can set an animation from anywhere ON THE CLIENT
                 //Do not attempt to do this on a server, that will only fail
-
+               // SoymilkCore.LOGGER.info("{}",tem1.bodyParts);
                 animation2.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "waving2"))));
                 //You might use  animation.replaceAnimationWithFade(); to create fade effect instead of sudden change
                 //See javadoc for details
