@@ -73,18 +73,18 @@ public class ModEventTracker {
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(SoymilkCore.MODID, "first_animation"),
                 42,
-                ModEventTracker::registerPlayerAnimation1);
+                ModEventTracker::registerPlayerAnimationfirst);
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(SoymilkCore.MODID, "third_animation"),
                 43,
-                ModEventTracker::registerPlayerAnimation);
+                ModEventTracker::registerPlayerAnimationthird);
     }
     //This method will set your mods animation into the library.
-    private static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
+    private static IAnimation registerPlayerAnimationthird(AbstractClientPlayer player) {
         //This will be invoked for every new player
         return new ModifierLayer<>();
     }
-    private static IAnimation registerPlayerAnimation1(AbstractClientPlayer player) {
+    private static IAnimation registerPlayerAnimationfirst(AbstractClientPlayer player) {
         //This will be invoked for every new player
         IAnimation animation = new ModifierLayer<>(null,new AbstractModifier() {
             private final Set<String> abledJoints = Set.of("rightArm", "leftArm"); // 需要禁用的关节名称
