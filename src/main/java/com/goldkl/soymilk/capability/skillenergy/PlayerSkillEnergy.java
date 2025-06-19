@@ -20,7 +20,7 @@ public class PlayerSkillEnergy {
     public double getEnergy() {
         return energy;
     }
-    public double getMaxEnergy(Player player) {
+    public static double getMaxEnergy(Player player) {
         AttributeInstance attributeInstance = player.getAttribute(AttributeRegistry.MAX_SKILL_ENERGY.get());
         return attributeInstance!=null?attributeInstance.getValue():0.0;
     }

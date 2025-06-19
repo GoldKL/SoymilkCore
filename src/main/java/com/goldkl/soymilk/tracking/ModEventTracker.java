@@ -6,6 +6,7 @@ import com.goldkl.soymilk.capability.skillenergy.PlayerSkillEnergy;
 import com.goldkl.soymilk.capability.skillenergy.PlayerSkillEnergyProvider;
 import com.goldkl.soymilk.capability.specialenergy.PlayerSpecialEnergy;
 import com.goldkl.soymilk.capability.specialenergy.PlayerSpecialEnergyProvider;
+import com.goldkl.soymilk.communication.AnimationMessage;
 import com.goldkl.soymilk.communication.PlayerOnSpecialMessage;
 import com.goldkl.soymilk.communication.PlayerSkillEnergyMessage;
 import com.goldkl.soymilk.communication.PlayerSpecialEnergyMessage;
@@ -63,6 +64,11 @@ public class ModEventTracker {
                 .encoder(PlayerOnSpecialMessage::write)
                 .decoder(PlayerOnSpecialMessage::new)
                 .consumerMainThread(PlayerOnSpecialMessage::handle)
+                .add();
+        SoymilkCore.channel.messageBuilder(AnimationMessage.class, 3)
+                .encoder(AnimationMessage::write)
+                .decoder(AnimationMessage::new)
+                .consumerMainThread(AnimationMessage::handle)
                 .add();
     }
 

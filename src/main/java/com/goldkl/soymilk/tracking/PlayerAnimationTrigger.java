@@ -1,6 +1,8 @@
 package com.goldkl.soymilk.tracking;
 
 import com.goldkl.soymilk.SoymilkCore;
+import com.goldkl.soymilk.client.Animation;
+import com.goldkl.soymilk.communication.AnimationMessage;
 import dev.kosmx.playerAnim.api.TransformType;
 import dev.kosmx.playerAnim.api.firstPerson.FirstPersonConfiguration;
 import dev.kosmx.playerAnim.api.firstPerson.FirstPersonMode;
@@ -22,6 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Example, how to trigger animations on specific players
@@ -36,11 +39,12 @@ public class PlayerAnimationTrigger {
     public static void onChatReceived(ClientChatReceivedEvent event) {
         //Test if it is a player (main or other) and the message
         if (event.getMessage().contains(Component.literal("waving"))) {
-
-
+            //UUID player = event.getSender();
+            //SoymilkCore.channel.sendToServer(new AnimationMessage(player,new ResourceLocation(SoymilkCore.MODID,"waving")));
+            Animation.playAnimation(Minecraft.getInstance().level.getPlayerByUUID(event.getSender()),new ResourceLocation(SoymilkCore.MODID,"waving"));
             //Get the player from Minecraft, using the chat profile ID. From network packets, you'll receive entity IDs instead of UUIDs
-            AbstractClientPlayer player = (AbstractClientPlayer)Minecraft.getInstance().level.getPlayerByUUID(event.getSender());
-
+            //AbstractClientPlayer player = (AbstractClientPlayer)Minecraft.getInstance().level.getPlayerByUUID(event.getSender());
+/*
             if (player == null) return; //The player can be null because it was a system message or because it is not loaded by this player.
             //Get the animation for that player
             var animation1 = (ModifierLayer<IAnimation>)PlayerAnimationAccess.getPlayerAssociatedData( player).get(new ResourceLocation(SoymilkCore.MODID, "first_animation"));
@@ -49,7 +53,7 @@ public class PlayerAnimationTrigger {
                 //You can set an animation from anywhere ON THE CLIENT
                 //Do not attempt to do this on a server, that will only fail
                 //SoymilkCore.LOGGER.info("{}",tem1.bodyParts);
-                animation1.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "waving"))).setFirstPersonConfiguration(new FirstPersonConfiguration(true,true,true,true)).setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL));
+                animation1.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "first_person.waving"))).setFirstPersonConfiguration(new FirstPersonConfiguration(true,true,true,true)).setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL));
                 //You might use  animation.replaceAnimationWithFade(); to create fade effect instead of sudden change
                 //See javadoc for details
             }
@@ -57,10 +61,10 @@ public class PlayerAnimationTrigger {
                 //You can set an animation from anywhere ON THE CLIENT
                 //Do not attempt to do this on a server, that will only fail
                // SoymilkCore.LOGGER.info("{}",tem1.bodyParts);
-                animation2.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "waving2"))));
+                animation2.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(SoymilkCore.MODID, "third_person.waving"))));
                 //You might use  animation.replaceAnimationWithFade(); to create fade effect instead of sudden change
                 //See javadoc for details
-            }
+            }*/
         }
     }
 

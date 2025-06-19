@@ -18,7 +18,7 @@ public class  PlayerSpecialEnergy {
     public double getspEnergy() {
         return spEnergy;
     }
-    public double getMaxspEnergy(Player player) {
+    static public double getMaxspEnergy(Player player) {
         AttributeInstance attributeInstance = player.getAttribute(AttributeRegistry.MAX_SPECIAL_ENERGY.get());
         return attributeInstance!=null?attributeInstance.getValue():0.0;
     }

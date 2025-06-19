@@ -74,11 +74,13 @@ public class ForgeEventTracker {
         if (event.phase == TickEvent.Phase.END) {
             Player player = event.player;
             if((!player.level().isClientSide)&&(!player.isCreative())&&(!player.isSpectator())) {
-                final boolean[] onspecial = {false};
-                player.getCapability(PlayerOnSpecialProvider.PLAYER_ON_SPECIAL_CAPABILITY).ifPresent(onSpecial ->{
-                    onspecial[0] = onSpecial.getOnSpecial();
-                });
-                if(onspecial[0]) {
+                boolean onspecial = false;
+                PlayerOnSpecial onSpecial = player.getCapability(PlayerOnSpecialProvider.PLAYER_ON_SPECIAL_CAPABILITY).orElse(null);
+                if(onSpecial != null)
+                {
+                    onspecial = onSpecial.getOnSpecial();
+                }
+                if(onspecial) {
                     if(player.tickCount%20 == 0)
                     {
                         addPlayerSpecialEnergy(player,-1);
@@ -87,6 +89,7 @@ public class ForgeEventTracker {
                         if(Double.compare(0.0,specialEnergy.getspEnergy()) == 0)
                         {
                             setPlayerOnSpecial(player,false);
+                            setPlayerSkillEnergy(player,PlayerSkillEnergy.getMaxEnergy(player));
                         }
                     });
                 }
